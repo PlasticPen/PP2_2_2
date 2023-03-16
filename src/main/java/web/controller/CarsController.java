@@ -14,15 +14,9 @@ public class CarsController {
     private CarService carService;
 
     @GetMapping("/cars")
-    public String show(@RequestParam(value = "count", required = false) String count, Model model) {
-        //Invalid Parameter also leads to showing all cars in the list;
-        int amount = 0;
-        try {
-            amount = Integer.parseInt(count);
-        } catch (NumberFormatException mfe) {
-            amount = 5;
-        }
-        model.addAttribute("cars", carService.getCars(amount));
+    public String show(@RequestParam(defaultValue = "5", value = "count", required = false) int count, Model model) {
+        System.out.println(count);
+        model.addAttribute("cars", carService.getCars(count));
         return "cars";
     }
 
